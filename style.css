@@ -174,7 +174,7 @@ input::placeholder {
     #prob {
         height: 300px;
         width: 10px;
-        left: -15px;
+        left: -20px;
     }
     .boxes, .X, .O {
         height: 84px;
