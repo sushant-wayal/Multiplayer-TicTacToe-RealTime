@@ -1,0 +1,164 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2E3532;
+}
+
+#prob {
+    position: absolute;
+    height: 450px;
+    width: 15px;
+    left: -30px;
+    border-radius: 10px;
+    animation: changeprob 1s ease-in-out 0s infinite alternate;
+}
+
+#ttt {
+    height: 50px;
+    width: 500px;
+    position: fixed;
+    top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #94849B;
+}
+
+#ttttext {
+    font-size: 35px;
+    font-weight: 900;
+}
+
+#gamecontrol {
+    height: 50px;
+    width: 450px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    top: 75px;
+}
+
+#reset, #restart {
+    cursor: pointer;
+    height: 40px;
+    width: 210px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #7E9181;
+    border-radius: 20px;
+}
+
+#resetText, #restartText {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.player {
+    height: 50px;
+    width: 500px;
+    border: 10px solid #2E3532;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: 85px;
+}
+
+.finish {
+    height: 50px;
+    width: 500px;
+    background-color: #2E3532;
+    border: 10px solid #A0AAB2;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    top: 85px;
+    font-size: 35px;
+    color: #C7CEDB;
+}
+
+#playerX, #playerO {
+    height: 50px;
+    width: 210px;
+    background-color: #2E3532;
+    font-size: 20px;
+    text-align: center;
+    color: #A0AAB2;
+    border: 10px solid #A0AAB2;
+    border-radius: 20px;
+    position: relative;
+    top: -10px;
+}
+
+input::placeholder {
+    font-size: 20px;
+    text-align: center;
+    color: #A0AAB2;
+}
+
+#playingArea {
+    height: 500px;
+    width: 500px;
+    position: relative;
+    top: 95px;
+    background-color: #94849B;
+    display: flex;
+    border-radius: 10%;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.rows {
+    width: 500px;
+    height: 140px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.boxes {
+    cursor: pointer;
+    height: 130px;
+    width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20%;
+    background-color: #A0AAB2;
+}
+
+.O {
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    border: 10px solid #C7CEDB;
+}
+
+.X {
+    height: 130px;
+    width: 130px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.line1, .line2 {
+    height: 150px;
+    width: 10px;
+    background-color: #C7CEDB;
+}
+
+.line1 {
+    position: relative;
+    left: 60px;
+    rotate: 45deg;
+}
+
+.line2 {
+    position: relative;
+    right: 60px;
+    rotate: -45deg;
+}
