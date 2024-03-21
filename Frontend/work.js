@@ -305,3 +305,25 @@ reset.addEventListener("click", (evt) => {
     playerX.value = "";
     playerO.value = "";
 })
+
+// const goOnline = (evt) => {
+    
+// }
+
+// const goOffline = (evt) => {
+    
+// }
+
+// let playerStatus = document.querySelector("#status")
+// let playerStatusText = document.querySelector("#statusText");
+
+// playerStatus.addEventListener("click",() => {
+//     if (playerStatusText.innerText == "On") {
+//         playerStatusText.innerText = "Off";
+//         goOnline();
+//     }
+//     else {
+//         playerStatusText.innerText = "On";
+//         goOffline();
+//     }
+// });

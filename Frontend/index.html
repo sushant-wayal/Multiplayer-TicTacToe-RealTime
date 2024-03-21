@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Tic - Tac - Toe</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,6 +14,10 @@
     <div id="gamecontrol">
         <div id="reset">
             <p id="resetText"> Reset Game </p>
+        </div>
+        <div id="status">
+            <p id="goText"> Go </p>
+            <p id="statusText"> On </p>
         </div>
         <div id="restart">
             <p id="restartText"> Restart Game </p>
@@ -42,5 +47,6 @@
         </div>
     </div>
     <script src="work.js"></script>
+    <script src="socket.js"></script>
 </body>
 </html>
