@@ -1,13 +1,42 @@
-// import { io } from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
+const socket = io("http://localhost:3001");
 
-const socket = io();
+let socketPlayerX = document.querySelector("#playerX");
+let socketPlayerO = document.querySelector("#playerO");
 
-const goOnline = (evt) => {
-    
+const goOnline = () => {
+    socket.emit("join");
+    const side = "";
+    socket.on("side", (data) => {
+        side = data.side;
+        if (side == "X") {
+            playerO.placeholder = opponent;
+        } else {
+            playerX.placeholder = opponent;
+        }
+    });
+    const opponent = "waiting for opponent...";
+    socket.on("found", (data) => {
+        opponent = data.opponent;
+        if (side == "X") {
+            playerO.value = opponent;
+            playerO.dispatchEvent(new KeyboardEvent("keydown", {key: "Enter"}));
+        } else {
+            playerX.value = opponent;
+            playerX.dispatchEvent(new KeyboardEvent("keydown", {key: "Enter"}));
+        }
+    });
+    const room = "";
+    socket.on("joined", (data) => {
+        room = data.room;
+    });
+    socket.on("move", (data) => {
+        let { move } = data;
+        // make move
+    });
 }
 
-const goOffline = (evt) => {
-    
+const goOffline = () => {
+    socket.disconnect();
 }
 
 let playerStatus = document.querySelector("#status")

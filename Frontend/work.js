@@ -13,23 +13,6 @@ playerX.style.backgroundColor = "#2E3532";
 let playero = "";
 let playerx = "";
 
-// let single = document.querySelector("#single");
-// let double = document.querySelector("#double");
-
-// let md = document.querySelector("#mode");
-
-// let mode;
-
-// single.addEventListener("click",(evt) => {
-//     mode = "single";
-//     md.style.zIndex = -1;
-// })
-
-// double.addEventListener("click",(evt) => {
-//     mode = "double";
-//     md.style.zIndex = -1;
-// })
-
 playerO.addEventListener("keydown", (evt) => {
     if (evt.keyCode === 13) {
         playero = playerO.value;
@@ -58,12 +41,6 @@ function finished() {
 }
 
 function Xwon() {
-    // if (playerX.value.length === 0) {
-    //     playerx = "Player X";
-    // }
-    // else {
-    //     playerx = playerX
-    // }
     playerx = playerX.value;
     if (playerx.length == 0) {
         playerx = "Player X";
@@ -72,9 +49,6 @@ function Xwon() {
 }
 
 function Owon() {
-    // if (playero.length === 0) {
-    //     playero = "Player O";
-    // }
     playero = playerO.value;
     if (playero.length == 0) {
         playero = "Player O";
@@ -137,7 +111,6 @@ const possible = (state,turn) => {
                 for (let j = 0; j < 3; j++) {
                     ans[j] += nextAns[j];
                 }
-
             }
         }
     }
@@ -255,7 +228,7 @@ let restart = document.querySelector("#restart");
 const restartclick = (evt) => {
     turn = "X";
     fin = false;
-    arr.forEach((val,idx) => {
+    arr.forEach((_val,idx) => {
         arr[idx] = '-';
     })
     setProb(arr,'X');
@@ -305,25 +278,3 @@ reset.addEventListener("click", (evt) => {
     playerX.value = "";
     playerO.value = "";
 })
-
-// const goOnline = (evt) => {
-    
-// }
-
-// const goOffline = (evt) => {
-    
-// }
-
-// let playerStatus = document.querySelector("#status")
-// let playerStatusText = document.querySelector("#statusText");
-
-// playerStatus.addEventListener("click",() => {
-//     if (playerStatusText.innerText == "On") {
-//         playerStatusText.innerText = "Off";
-//         goOnline();
-//     }
-//     else {
-//         playerStatusText.innerText = "On";
-//         goOffline();
-//     }
-// });
