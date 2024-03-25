@@ -1,20 +1,18 @@
 const socket = io("http://localhost:3001");
 
-let socketPlayerX = document.querySelector("#playerX");
-let socketPlayerO = document.querySelector("#playerO");
-
 const goOnline = () => {
     socket.emit("join");
-    const side = "";
+    let opponent = "waiting for opponent...";
+    let side = "";
     socket.on("side", (data) => {
         side = data.side;
+        console.log("side",side);
         if (side == "X") {
             playerO.placeholder = opponent;
         } else {
             playerX.placeholder = opponent;
         }
     });
-    const opponent = "waiting for opponent...";
     socket.on("found", (data) => {
         opponent = data.opponent;
         if (side == "X") {
@@ -25,7 +23,7 @@ const goOnline = () => {
             playerX.dispatchEvent(new KeyboardEvent("keydown", {key: "Enter"}));
         }
     });
-    const room = "";
+    let room = "";
     socket.on("joined", (data) => {
         room = data.room;
     });
