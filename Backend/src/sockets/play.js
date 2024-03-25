@@ -1,30 +1,19 @@
 import { io } from "../app.js";
 
-const getAllClients = async (roomName) => {
-    io.sockets.adapter.rooms(roomName, (error, clients) => {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            return clients;
-        }
-    });
-}
+const finder = [];
+const waiter = [];
 
 const play = () => {
     io.on("connection", (socket) => {
         socket.on("join", async () => {
-            let finder = await getAllClients("finder");
-            let waiter = await getAllClients("waiter");
-            console.log("output",finder, waiter);
             if (finder.length >= waiter.length) {
-                socket.join("waiter");
+                waiter.push(socket.id);
                 socket.emit("side", { side: "O" });
             } else {
-                socket.join("finder");
+                finder.push(socket.id);
                 socket.emit("side", { side: "X" });
             }
-            if (socket.rooms.has("finder")) {
+            if (finder.indexOf(socket.id) !== -1) {
                 let find = Math.floor(Math.random()*waiter.length);
                 while (!io.sockets.sockets.has(waiter[find])) {
                     find = Math.floor(Math.random()*waiter.length);
@@ -35,8 +24,8 @@ const play = () => {
                 socket.join(room);
                 io.sockets.sockets.get(waiter[find]).join(room);
                 io.to(room).emit("joined", { room });
-                socket.leave("finder");
-                io.sockets.sockets.get(waiter[find]).leave("waiter");
+                finder.splice(finder.indexOf(socket.id), 1);
+                waiter.splice(find, 1);
             }
         });
         socket.on("move", (data) => {
