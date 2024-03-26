@@ -28,9 +28,23 @@ const goOnline = () => {
         room = data.room;
     });
     socket.on("move", (data) => {
+        console.log("recived :",data.move);
         let { move } = data;
-        // make move
+        document.querySelector(`#box${move}`).click();
     });
+    let boxes = document.querySelectorAll(".boxes");
+    boxes.forEach((box, index) => {
+        box.addEventListener("click", () => {
+            console.log("turn :",turn)
+            if (turn != side) {
+                console.log("room", room)
+                socket.emit("move", {
+                    move: index+1,
+                    room
+                })
+            }
+        })
+    })
 }
 
 const goOffline = () => {
