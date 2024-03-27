@@ -30,11 +30,15 @@ const goOnline = () => {
     socket.on("move", (data) => {
         console.log("recived :",data.move);
         let { move } = data;
+        disabled = false;
         document.querySelector(`#box${move}`).click();
     });
     let boxes = document.querySelectorAll(".boxes");
     boxes.forEach((box, index) => {
         box.addEventListener("click", () => {
+            if (disabled) {
+                return;
+            }
             console.log("turn :",turn)
             if (turn != side) {
                 console.log("room", room)
@@ -42,6 +46,9 @@ const goOnline = () => {
                     move: index+1,
                     room
                 })
+                if (room) {
+                    disabled = true;
+                }
             }
         })
     })

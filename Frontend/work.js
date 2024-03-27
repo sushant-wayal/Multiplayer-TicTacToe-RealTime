@@ -166,60 +166,67 @@ function setProb(state,turn) {
     initialProb = probability;
 }
 
+let disabled = false;
+
 boxes.forEach((box,idx) => {
     box.addEventListener("click",(evt) => {
-        if (!fin) {
-            if (turn === "O") {
-                if (arr[idx] === '-') {
-                    arr[idx] = 'o';
-                    box.classList.add("O");
-                    box.classList.remove("boxes");
-                    turn = "X";
-                    playerO.style.backgroundColor = "#7E9181";
-                    playerX.style.backgroundColor = "#2E3532";
+        console.log("clicked");
+        if (!disabled) {
+            if (!fin) {
+                if (turn === "O") {
+                    if (arr[idx] === '-') {
+                        arr[idx] = 'o';
+                        box.classList.add("O");
+                        box.classList.remove("boxes");
+                        turn = "X";
+                        playerO.style.backgroundColor = "#7E9181";
+                        playerX.style.backgroundColor = "#2E3532";
+                    }
+                    else {
+                        alert("Invalid Move");
+                    }
                 }
-                else {
-                    alert("Invalid Move");
+                else if (turn === "X") {
+                    if (arr[idx] === '-') {
+                        arr[idx] = 'x';
+                        box.classList.add("X");
+                        box.classList.remove("boxes");
+                        let l1 = document.createElement("div");
+                        let l2 = document.createElement("div");
+                        l1.classList.add("line1");
+                        l2.classList.add("line2");
+                        box.append(l1);
+                        box.append(l2);
+                        turn = "O";
+                        playerX.style.backgroundColor = "#7E9181";
+                        playerO.style.backgroundColor = "#2E3532";
+                    }
+                    else {
+                        alert("Invalid Move");
+                    }
+                }
+                let res = result(arr);
+                let arr1 = winProb(arr,turn);
+                if (res === 'X') {
+                    finished();
+                    Xwon();
+                }
+                else if (res === 'O') {
+                    finished();
+                    Owon();
+                }
+                else if (res === "Draw" || (arr1[0] === 0 && arr1[1] === 100)) {
+                    finished();
+                    document.querySelector(".finish").innerText = "Game has been Drawn";
                 }
             }
-            else if (turn === "X") {
-                if (arr[idx] === '-') {
-                    arr[idx] = 'x';
-                    box.classList.add("X");
-                    box.classList.remove("boxes");
-                    let l1 = document.createElement("div");
-                    let l2 = document.createElement("div");
-                    l1.classList.add("line1");
-                    l2.classList.add("line2");
-                    box.append(l1);
-                    box.append(l2);
-                    turn = "O";
-                    playerX.style.backgroundColor = "#7E9181";
-                    playerO.style.backgroundColor = "#2E3532";
-                }
-                else {
-                    alert("Invalid Move");
-                }
+            else {
+                alert("Game is Over please restart the game");
             }
-            let res = result(arr);
-            let arr1 = winProb(arr,turn);
-            if (res === 'X') {
-                finished();
-                Xwon();
-            }
-            else if (res === 'O') {
-                finished();
-                Owon();
-            }
-            else if (res === "Draw" || (arr1[0] === 0 && arr1[1] === 100)) {
-                finished();
-                document.querySelector(".finish").innerText = "Game has been Drawn";
-            }
+            setProb(arr,turn);
+        } else {
+            alert("Wait for opponent to play his move");
         }
-        else {
-            alert("Game is Over please restart the game");
-        }
-        setProb(arr,turn);
     });
 });
 
