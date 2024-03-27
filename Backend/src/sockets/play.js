@@ -32,6 +32,14 @@ const play = () => {
             let { move, room } = data;
             socket.to(room).emit("move", {move});
         });
+        socket.on("disconnect", () => {
+            if (finder.indexOf(socket.id) !== -1) {
+                finder.splice(finder.indexOf(socket.id), 1);
+            }
+            if (waiter.indexOf(socket.id) !== -1) {
+                waiter.splice(waiter.indexOf(socket.id), 1);
+            }
+        });
     })
 }
 

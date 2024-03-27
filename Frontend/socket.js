@@ -55,7 +55,12 @@ const goOnline = () => {
 }
 
 const goOffline = () => {
-    socket.disconnect();
+    // not working, yet to fix
+    socket.emit("disconnect");
+    playerX.value = "";
+    playerX.placeholder = "Player X";
+    playerO.value = "";
+    playerO.placeholder = "Player O";
 }
 
 let playerStatus = document.querySelector("#status")
