@@ -11,7 +11,7 @@ const play = () => {
                 socket.join(room);
                 io.sockets.sockets.get(waiting).join(room);
                 io.to(waiting).emit("found", { opponent: socket.id });
-                socket.emit("found", { opponent: waiting });
+                socket.emit("found");
                 io.to(room).emit("joined", { room });
                 waiting = null;
             } else {
@@ -19,18 +19,19 @@ const play = () => {
                 waiting = socket.id;
             }
         });
-        socket.on("move", (data) => {
-            let { move, room } = data;
+        socket.on("move", ({ move, room }) => {
             socket.to(room).emit("move", {move});
         });
-        socket.on("disconnect", () => {
-            if (finder.indexOf(socket.id) !== -1) {
-                finder.splice(finder.indexOf(socket.id), 1);
-            }
-            if (waiter.indexOf(socket.id) !== -1) {
-                waiter.splice(waiter.indexOf(socket.id), 1);
-            }
+        socket.on("leave", ({ room }) => {
+            socket.leave(room);
         });
+        socket.on("finished", ({ room }) => {
+            socket.leave(room);
+        })
+        socket.on("goOff", ({ room }) => {
+            socket.to(room).emit("goOff");
+            socket.leave(room);
+        })
     })
 }
 

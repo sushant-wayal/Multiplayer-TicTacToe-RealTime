@@ -38,6 +38,8 @@ function finished() {
     player.classList.remove("player");
     playerX.style.visibility = "hidden";
     playerO.style.visibility = "hidden";
+    playerStatusText.innerText = "On";
+    socket.emit("finished", {room});
 }
 
 function Xwon() {
@@ -168,6 +170,8 @@ function setProb(state,turn) {
 
 let disabled = false;
 
+let connection = 0;
+
 boxes.forEach((box,idx) => {
     box.addEventListener("click",(evt) => {
         console.log("clicked");
@@ -183,7 +187,7 @@ boxes.forEach((box,idx) => {
                         playerX.style.backgroundColor = "#2E3532";
                     }
                     else {
-                        alert("Invalid Move");
+                        if (connection <= 1 || arr[idx] != 'x') alert("Invalid Move");
                     }
                 }
                 else if (turn === "X") {
@@ -202,7 +206,7 @@ boxes.forEach((box,idx) => {
                         playerO.style.backgroundColor = "#2E3532";
                     }
                     else {
-                        alert("Invalid Move");
+                        if (connection <= 1 || arr[i] != 'x') alert("Invalid Move");
                     }
                 }
                 let res = result(arr);
@@ -249,6 +253,7 @@ const restartclick = (evt) => {
     document.querySelector(".finish").innerText = "";
     player.classList.remove(...player.classList);
     player.classList.add("player");
+    console.log("done dana done done");
     playerX = document.createElement("input");
     playerX.type = "text";
     playerO = document.createElement("input");

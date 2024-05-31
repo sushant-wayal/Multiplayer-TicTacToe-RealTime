@@ -1,6 +1,28 @@
 const socket = io("http://localhost:3001");
 
+const wentOffline = () => {
+    room = "";
+    turn = "X";
+    playerX.value = "";
+    playerX.placeholder = "Player X";
+    playerO.value = "";
+    playerO.placeholder = "Player O";
+    arr.forEach((_val,idx) => {
+        arr[idx] = '-';
+    })
+    boxes.forEach((box) => {
+        while (box.firstChild) {
+            box.removeChild(box.firstChild);
+        }
+        box.classList.remove(...box.classList);
+        box.classList.add("boxes");
+    })
+}
+
+let room = "";
+
 const goOnline = () => {
+    if (fin) restartclick();
     socket.emit("join");
     let opponent = "waiting for opponent...";
     let side = "";
@@ -13,17 +35,18 @@ const goOnline = () => {
             playerX.placeholder = opponent;
         }
     });
-    socket.on("found", (data) => {
-        opponent = data.opponent;
+    socket.on("found", () => {
+        connection++;
         if (side == "X") {
-            playerO.value = opponent;
+            playerX.value = "You";
+            playerO.value = "Opponent";
             playerO.dispatchEvent(new KeyboardEvent("keydown", {key: "Enter"}));
         } else {
-            playerX.value = opponent;
+            playerO.value = "You";
+            playerX.value = "Opponent";
             playerX.dispatchEvent(new KeyboardEvent("keydown", {key: "Enter"}));
         }
     });
-    let room = "";
     socket.on("joined", (data) => {
         room = data.room;
     });
@@ -52,15 +75,18 @@ const goOnline = () => {
             }
         })
     })
+    socket.on("goOff", () => {
+        socket.emit("leave", { room });
+        wentOffline();
+        goOnline();
+    })
 }
 
 const goOffline = () => {
     // not working, yet to fix
-    socket.emit("disconnect");
-    playerX.value = "";
-    playerX.placeholder = "Player X";
-    playerO.value = "";
-    playerO.placeholder = "Player O";
+    disabled = false;
+    socket.emit("goOff", { room });
+    wentOffline();
 }
 
 let playerStatus = document.querySelector("#status")
