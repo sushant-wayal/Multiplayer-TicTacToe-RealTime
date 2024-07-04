@@ -4,6 +4,7 @@ let waiting = null;
 
 const play = () => {
     io.on("connection", (socket) => {
+        console.log("connected", socket.id);
         socket.on("join", async () => {
             if (waiting) {
                 socket.emit("side", { side: "O" });
