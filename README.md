@@ -1,58 +1,46 @@
-# Multiplayer Tic-Tac-Toe in Real Time
+# Multiplayer Tic-Tac-Toe in Real-Time
 
-This repository contains a real-time multiplayer Tic-Tac-Toe game built using Node.js, Express, and Socket.io.  Two players can connect to the game and play against each other in real-time.
+This project implements a real-time multiplayer Tic-Tac-Toe game using Node.js, Express, Socket.IO, and vanilla JavaScript on the front-end.  Two players can connect and play against each other in a web browser.
 
 ## Features
 
-* Real-time gameplay using WebSockets.
-* Simple and intuitive user interface.
-* Player names can be customized.
-* Visual win probability indicator.
-* Game status indicator (Online/Offline).
-* Reset and restart game functionality.
+* **Real-time gameplay:**  Players' moves are instantly reflected on both clients.
+* **Opponent matching:**  The server automatically pairs players who join the game.
+* **Turn-based system:**  Enforces correct turn order and prevents invalid moves.
+* **Win detection:**  Determines the winner or a draw and displays the result.
+* **Game restart:** Option to restart the game after it finishes.
+* **Player names:**  Players can enter their names.
+* **Win probability visualization:**  A dynamic probability bar visualizes the win/draw probabilities for X and O.
+* **Online/Offline status:** Allows players to go online/offline (though offline mode is currently not fully implemented).
 
-## Project Structure
 
-The project is divided into two main parts:
+## Files Description
 
-* **Backend:** Handles game logic, connections, and real-time communication between players. Uses Node.js with Express and Socket.io.
-* **Frontend:** Provides the user interface for the game.  Built with HTML, CSS, and JavaScript.
+* **app.js:** Sets up the Express server, handles CORS, and initializes Socket.IO.
+* **constants.js:** (Currently empty) Intended for storing any constant values.
+* **index.js:** The main entry point for the server-side application.
+* **play.js:** Contains the Socket.IO logic for managing game rooms, player connections, and move synchronization.
+* **socket.js (Client-side):** Handles client-side socket connections, emits events to the server, and updates the UI based on received events.
+* **work.js (Client-side):**  Manages the front-end game logic, UI updates, win/draw conditions, and win probability calculations.
 
-## Getting Started
 
-1. Clone the repository: `git clone https://github.com/sushantwayal/Multiplayer-TicTacToe-RealTime.git`
-2. Navigate to the `Backend` directory: `cd Backend`
+## Installation and Running
+
+1. Clone the repository.
+2. Navigate to the project directory.
 3. Install dependencies: `npm install`
-4. Start the backend server: `npm run dev`
-5. Navigate to the `Frontend` directory in a new terminal: `cd Frontend`
-6. Open `index.html` in your browser.
-
-## How to Play
-
-1. Open two browser windows or tabs, both pointed to `index.html`.
-2. Toggle the "Go" button to "On" in both windows to connect to the server.
-3. Enter player names (optional).
-4. The first player to connect will be assigned "X", and the second will be "O".
-5. Players take turns clicking on the grid to place their marks.
-6. The game ends when one player gets three in a row, or the grid is full (a draw).
-7. Reset or restart the game using the provided buttons.
+4. Start the server: `npm start`
+5. Open the `index.html` file in your web browser.
 
 
-## Technologies Used
+## Future Improvements
 
-* Node.js
-* Express.js
-* Socket.io
-* HTML
-* CSS
-* JavaScript
+* Implement full offline functionality.
+* Improve user interface and styling.
+* Add more robust error handling.
+* Consider adding a chat feature.
 
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-
-## License
-
-[ISC](LICENSE)
+Contributions are welcome!  Please feel free to submit pull requests or open issues.
